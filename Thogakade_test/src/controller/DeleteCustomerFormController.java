@@ -34,7 +34,6 @@ public class DeleteCustomerFormController {
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     public void txtSearchOnAction(ActionEvent actionEvent) {
@@ -67,6 +66,5 @@ public class DeleteCustomerFormController {
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
-
     }
 }
