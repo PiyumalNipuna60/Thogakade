@@ -1,14 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controller.LoadAllCustomerFormController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoadAllCustomerFormController">
+    <children>
+        <Label alignment="BOTTOM_LEFT" layoutX="21.0" layoutY="21.0" text="Load All Customer" textOverrun="WORD_ELLIPSIS">
+            <font>
+                <Font name="Bookman Old Style" size="14.0" />
+            </font>
+            <effect>
+                <Glow />
+            </effect>
+            <cursor>
+                <Cursor fx:constant="WAIT" />
+            </cursor>
+        </Label>
+        <TableView fx:id="tblCustomer" layoutX="19.0" layoutY="60.0" prefHeight="318.0" prefWidth="565.0">
+            <columns>
+                <TableColumn fx:id="colCusId" prefWidth="123.0" text="Customer Id" />
+                <TableColumn fx:id="colCusName" minWidth="0.0" prefWidth="150.0" text="Customer Name" />
+                <TableColumn fx:id="colCusAddress" prefWidth="150.0" text="Customer Address" />
+                <TableColumn fx:id="colCusSalary" prefWidth="141.0" text="Customer Salary" />
+            </columns>
+        </TableView>
+    </children>
 </AnchorPane>
