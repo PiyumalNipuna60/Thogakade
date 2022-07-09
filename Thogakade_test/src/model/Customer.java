@@ -4,12 +4,12 @@ public class Customer {
     String cusId;
     String cusName;
     String cusAddress;
-    String cusSalary;
+    double cusSalary;
 
     public Customer() {
     }
 
-    public Customer(String cusId, String cusName, String cusAddress, String cusSalary) {
+    public Customer(String cusId, String cusName, String cusAddress, double cusSalary) {
         this.cusId = cusId;
         this.cusName = cusName;
         this.cusAddress = cusAddress;
@@ -40,11 +40,11 @@ public class Customer {
         this.cusAddress = cusAddress;
     }
 
-    public String getCusSalary() {
+    public double getCusSalary() {
         return cusSalary;
     }
 
-    public void setCusSalary(String cusSalary) {
+    public void setCusSalary(double cusSalary) {
         this.cusSalary = cusSalary;
     }
 
