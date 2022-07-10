@@ -27,7 +27,9 @@ public class LoadAllCustomerFormController {
     }
 
     private void LoadAllCustomer() {
-        try {
+
+// Use Statement==========================
+/*        try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade", "root", "1234");
             String sql = "SELECT * FROM Customer";
@@ -41,6 +43,31 @@ public class LoadAllCustomerFormController {
                                 resultSet.getString("name"),
                                 resultSet.getString("address"),
                                 resultSet.getDouble("salary")
+                        )
+                );
+            }
+            tblCustomer.setItems(obList);
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }*/
+
+// Use PreparedStatement==========================
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade", "root", "1234");
+            String sql = "SELECT * FROM Customer";
+            PreparedStatement stm = con.prepareStatement(sql);
+            ResultSet resultSet = stm.executeQuery();
+
+            ObservableList<Customer> obList=FXCollections.observableArrayList();
+            while (resultSet.next()){
+                obList.add(
+                        new Customer(
+                         resultSet.getString("id"),
+                         resultSet.getString("name"),
+                         resultSet.getString("address"),
+                         resultSet.getDouble("salary")
                         )
                 );
             }
