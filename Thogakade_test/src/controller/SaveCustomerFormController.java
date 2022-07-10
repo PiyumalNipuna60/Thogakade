@@ -6,6 +6,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import model.Customer;
+import util.CrudUtil;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -65,7 +66,7 @@ public class SaveCustomerFormController {
 
 
 // Use DBConnection==========================
-        try {
+/*        try {
             String sql = "INSERT INTO Customer VALUES(?,?,?,?)";
             PreparedStatement stm = DBConnection.getInstance().getConnection().prepareStatement(sql);
             stm.setObject(1, c.getCusId());
@@ -73,6 +74,18 @@ public class SaveCustomerFormController {
             stm.setObject(3, c.getCusAddress());
             stm.setObject(4, c.getCusSalary());
             if (stm.executeUpdate() > 0) {
+                new Alert(Alert.AlertType.CONFIRMATION, "Save Customer!..").show();
+            } else {
+                new Alert(Alert.AlertType.CONFIRMATION, "Something went Wrong!..").show();
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }*/
+
+
+// Use CrudUtil==========================
+        try {
+            if (CrudUtil.executeUpdate("INSERT INTO Customer VALUES(?,?,?,?)",c.getCusId(),c.getCusName(),c.getCusAddress(),c.getCusSalary())) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Save Customer!..").show();
             } else {
                 new Alert(Alert.AlertType.CONFIRMATION, "Something went Wrong!..").show();
