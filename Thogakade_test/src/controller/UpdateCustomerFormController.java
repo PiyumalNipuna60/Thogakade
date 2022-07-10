@@ -79,7 +79,7 @@ public class UpdateCustomerFormController {
 
 // Use DBConnection==========================
         try {
-            if (CrudUtil.executeUpdate("UPDATE Customer SET name=?,address=?,salary=? WHERE ID=?",c.getCusName(),c.getCusAddress(),c.getCusSalary(),c.getCusId())){
+            if (CrudUtil.execute("UPDATE Customer SET name=?,address=?,salary=? WHERE ID=?",c.getCusName(),c.getCusAddress(),c.getCusSalary(),c.getCusId())){
                 new Alert(Alert.AlertType.CONFIRMATION, "Updated!..").show();
             } else {
                 new Alert(Alert.AlertType.WARNING, "Something Wrong!..").show();
@@ -157,7 +157,7 @@ public class UpdateCustomerFormController {
 
 // Use CrudUtil==========================
         try {
-            ResultSet resultSet = CrudUtil.executeQuery("SELECT * FROM Customer WHERE id=?",txtCustomerId.getText());
+            ResultSet resultSet = CrudUtil.execute("SELECT * FROM Customer WHERE id=?",txtCustomerId.getText());
             if (resultSet.next()){
                 txtCustomerName.setText(resultSet.getString(2));
                 txtCustomerAddress.setText(resultSet.getString(3));

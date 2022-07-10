@@ -108,7 +108,7 @@ public class LoadAllCustomerFormController {
 
 // Use CrudUtil==========================
         try {
-            ResultSet resultSet = CrudUtil.executeQuery("SELECT * FROM Customer");
+            ResultSet resultSet = CrudUtil.execute("SELECT * FROM Customer");
 
             ObservableList<Customer> obList=FXCollections.observableArrayList();
             while (resultSet.next()){

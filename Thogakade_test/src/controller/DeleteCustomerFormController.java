@@ -72,7 +72,7 @@ public class DeleteCustomerFormController {
 
 // Use CrudUtil==========================
         try {
-            if (CrudUtil.executeUpdate("DELETE FROM Customer WHERE id=?",txtCustomerId.getText())) {
+            if (CrudUtil.execute("DELETE FROM Customer WHERE id=?",txtCustomerId.getText())) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Deleted!..").show();
             }
         } catch (ClassNotFoundException | SQLException e) {
@@ -158,7 +158,7 @@ public class DeleteCustomerFormController {
 
 // Use CrudUtil==========================
         try {
-            ResultSet resultSet = CrudUtil.executeQuery("SELECT * FROM Customer WHERE id=?", txtCustomerId.getText());
+            ResultSet resultSet = CrudUtil.execute("SELECT * FROM Customer WHERE id=?", txtCustomerId.getText());
             if (resultSet.next()) {
                 txtCustomerName.setText(resultSet.getString(2));
                 txtCustomerAddress.setText(resultSet.getString(3));

@@ -85,7 +85,7 @@ public class SaveCustomerFormController {
 
 // Use CrudUtil==========================
         try {
-            if (CrudUtil.executeUpdate("INSERT INTO Customer VALUES(?,?,?,?)",c.getCusId(),c.getCusName(),c.getCusAddress(),c.getCusSalary())) {
+            if (CrudUtil.execute("INSERT INTO Customer VALUES(?,?,?,?)",c.getCusId(),c.getCusName(),c.getCusAddress(),c.getCusSalary())) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Save Customer!..").show();
             } else {
                 new Alert(Alert.AlertType.CONFIRMATION, "Something went Wrong!..").show();

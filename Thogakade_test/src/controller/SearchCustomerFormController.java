@@ -98,7 +98,7 @@ public class SearchCustomerFormController {
 
 // Use CrudUtil==========================
         try {
-            ResultSet resultSet = CrudUtil.executeQuery("SELECT * FROM Customer WHERE id=?",txtCustomerId.getText());
+            ResultSet resultSet = CrudUtil.execute("SELECT * FROM Customer WHERE id=?",txtCustomerId.getText());
             if (resultSet.next()){
                 txtCustomerName.setText(resultSet.getString(2));
                 txtCustomerAddress.setText(resultSet.getString(3));
