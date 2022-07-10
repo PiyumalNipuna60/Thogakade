@@ -1,6 +1,5 @@
 package controller;
 
-import db.DataSet;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -9,8 +8,8 @@ import model.Customer;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class SaveCustomerFormController {
     public Button btnSave;
@@ -20,7 +19,7 @@ public class SaveCustomerFormController {
     public TextField txtCustomerSalary;
 
     public void btnSaveOnAction(ActionEvent actionEvent) {
-        Customer c=new Customer(txtCustomerId.getText(),txtCustomerName.getText(),txtCustomerAddress.getText(),Double.parseDouble(txtCustomerSalary.getText()));
+        Customer c = new Customer(txtCustomerId.getText(), txtCustomerName.getText(), txtCustomerAddress.getText(), Double.parseDouble(txtCustomerSalary.getText()));
         /*DataSet.customerArray.add(customer);
         if (DataSet.customerArray.add(customer)){
             new Alert(Alert.AlertType.CONFIRMATION,"Save Customer!..").show();
@@ -28,7 +27,8 @@ public class SaveCustomerFormController {
             new Alert(Alert.AlertType.CONFIRMATION,"Something went Wrong!..").show();
         }*/
 
-        try {
+// Use Statement==========================
+/*        try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade","root","1234");
             String sql="INSERT INTO Customer VALUES('"+c.getCusId()+"','"+c.getCusName()+"','"+c.getCusAddress()+"','"+c.getCusSalary()+"')";
@@ -38,7 +38,26 @@ public class SaveCustomerFormController {
             }else {
                 new Alert(Alert.AlertType.CONFIRMATION,"Something went Wrong!..").show();
             }
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }*/
 
+// Use PreparedStatement==========================
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade", "root", "1234");
+            String sql = "INSERT INTO Customer VALUES(?,?,?,?)";
+            PreparedStatement stm = con.prepareStatement(sql);
+            stm.setObject(1, c.getCusId());
+            stm.setObject(2, c.getCusName());
+            stm.setObject(3, c.getCusAddress());
+            stm.setObject(4, c.getCusSalary());
+            if (stm.executeUpdate() > 0) {
+                new Alert(Alert.AlertType.CONFIRMATION, "Save Customer!..").show();
+            } else {
+                new Alert(Alert.AlertType.CONFIRMATION, "Something went Wrong!..").show();
+            }
 
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
