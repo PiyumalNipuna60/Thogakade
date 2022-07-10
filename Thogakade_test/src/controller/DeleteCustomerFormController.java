@@ -5,8 +5,11 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import util.CrudUtil;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class DeleteCustomerFormController {
     public Button btnDelete;
@@ -54,19 +57,27 @@ public class DeleteCustomerFormController {
         }*/
 
 
-
 // Use DBConnection==========================
-     try {
+/*        try {
             String sql = "DELETE FROM Customer WHERE id=?";
             PreparedStatement stm = DBConnection.getInstance().getConnection().prepareStatement(sql);
-            stm.setObject(1,txtCustomerId.getText());
-            if(stm.executeUpdate()>0){
+            stm.setObject(1, txtCustomerId.getText());
+            if (stm.executeUpdate() > 0) {
+                new Alert(Alert.AlertType.CONFIRMATION, "Deleted!..").show();
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }*/
+
+
+// Use CrudUtil==========================
+        try {
+            if (CrudUtil.executeUpdate("DELETE FROM Customer WHERE id=?",txtCustomerId.getText())) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Deleted!..").show();
             }
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
-
     }
 
 
@@ -127,13 +138,28 @@ public class DeleteCustomerFormController {
 
 
 // Use DBConnection==========================
-        try {
+/*        try {
             String sql = "SELECT * FROM Customer WHERE id=?";
             PreparedStatement stm = DBConnection.getInstance().getConnection().prepareStatement(sql);
             stm.setObject(1,txtCustomerId.getText());
 
             ResultSet resultSet = stm.executeQuery();
             if (resultSet.next()){
+                txtCustomerName.setText(resultSet.getString(2));
+                txtCustomerAddress.setText(resultSet.getString(3));
+                txtCustomerSalary.setText(String.valueOf(resultSet.getDouble(4)));
+            } else {
+                new Alert(Alert.AlertType.WARNING, "Empty Result!..").show();
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }*/
+
+
+// Use CrudUtil==========================
+        try {
+            ResultSet resultSet = CrudUtil.executeQuery("SELECT * FROM Customer WHERE id=?", txtCustomerId.getText());
+            if (resultSet.next()) {
                 txtCustomerName.setText(resultSet.getString(2));
                 txtCustomerAddress.setText(resultSet.getString(3));
                 txtCustomerSalary.setText(String.valueOf(resultSet.getDouble(4)));
