@@ -19,7 +19,9 @@ public class UpdateCustomerFormController {
         Customer c = new Customer(
                 txtCustomerId.getText(), txtCustomerName.getText(), txtCustomerAddress.getText(), Double.parseDouble(txtCustomerSalary.getText())
         );
-        try {
+
+// Use Statement==========================
+/*        try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade", "root", "1234");
             String sql = "UPDATE Customer SET name='" + c.getCusName() + "',address='" + c.getCusAddress() + "',salary='" + c.getCusSalary() + "' WHERE ID='" + c.getCusId() + "'";
@@ -31,11 +33,34 @@ public class UpdateCustomerFormController {
             }
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
+        }*/
+
+// Use PreparedStatement==========================
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade", "root", "1234");
+            String sql = "UPDATE Customer SET name=?,address=?,salary=? WHERE ID=?";
+            PreparedStatement stm = con.prepareStatement(sql);
+            stm.setObject(1,c.getCusName());
+            stm.setObject(2,c.getCusAddress());
+            stm.setObject(3,c.getCusSalary());
+            stm.setObject(4,c.getCusId());
+
+            if (stm.executeUpdate()>0){
+                new Alert(Alert.AlertType.CONFIRMATION, "Updated!..").show();
+            } else {
+                new Alert(Alert.AlertType.WARNING, "Something Wrong!..").show();
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
         }
+
     }
 
     public void txtSearchOnAction(ActionEvent actionEvent) {
-        try {
+
+// Use Statement==========================
+/*        try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade", "root", "1234");
             String sql = "SELECT * FROM Customer WHERE id='" + txtCustomerId.getText() + "'";
@@ -45,6 +70,26 @@ public class UpdateCustomerFormController {
                 txtCustomerName.setText(resultSet.getString(2));
                 txtCustomerAddress.setText(resultSet.getString(3));
                 txtCustomerSalary.setText(String.valueOf(resultSet.getDouble(4)));
+            } else {
+                new Alert(Alert.AlertType.WARNING, "Empty Result!..").show();
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }*/
+
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade", "root", "1234");
+            String sql = "SELECT * FROM Customer WHERE id=?";
+            PreparedStatement stm = con.prepareStatement(sql);
+            stm.setObject(1,txtCustomerId.getText());
+
+            ResultSet resultSet = stm.executeQuery();
+            if (resultSet.next()){
+                txtCustomerName.setText(resultSet.getString(2));
+                txtCustomerAddress.setText(resultSet.getString(3));
+                txtCustomerSalary.setText(String.valueOf(resultSet.getString(4)));
             } else {
                 new Alert(Alert.AlertType.WARNING, "Empty Result!..").show();
             }
