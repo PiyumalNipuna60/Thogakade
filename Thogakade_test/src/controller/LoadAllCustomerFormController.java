@@ -1,5 +1,6 @@
 package controller;
 
+import db.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
@@ -53,7 +54,7 @@ public class LoadAllCustomerFormController {
         }*/
 
 // Use PreparedStatement==========================
-        try {
+/*        try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade", "root", "1234");
             String sql = "SELECT * FROM Customer";
@@ -68,6 +69,31 @@ public class LoadAllCustomerFormController {
                          resultSet.getString("name"),
                          resultSet.getString("address"),
                          resultSet.getDouble("salary")
+                        )
+                );
+            }
+            tblCustomer.setItems(obList);
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }*/
+
+
+
+// Use PreparedStatement==========================
+        try {
+            String sql = "SELECT * FROM Customer";
+            PreparedStatement stm = DBConnection.getInstance().getConnection().prepareStatement(sql);
+            ResultSet resultSet = stm.executeQuery();
+
+            ObservableList<Customer> obList=FXCollections.observableArrayList();
+            while (resultSet.next()){
+                obList.add(
+                        new Customer(
+                                resultSet.getString("id"),
+                                resultSet.getString("name"),
+                                resultSet.getString("address"),
+                                resultSet.getDouble("salary")
                         )
                 );
             }

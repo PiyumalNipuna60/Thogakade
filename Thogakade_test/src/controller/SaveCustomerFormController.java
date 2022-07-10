@@ -1,5 +1,6 @@
 package controller;
 
+import db.DBConnection;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -43,8 +44,7 @@ public class SaveCustomerFormController {
         }*/
 
 // Use PreparedStatement==========================
-
-        try {
+/*        try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade", "root", "1234");
             String sql = "INSERT INTO Customer VALUES(?,?,?,?)";
@@ -61,9 +61,24 @@ public class SaveCustomerFormController {
 
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
+        }*/
+
+
+// Use DBConnection==========================
+        try {
+            String sql = "INSERT INTO Customer VALUES(?,?,?,?)";
+            PreparedStatement stm = DBConnection.getInstance().getConnection().prepareStatement(sql);
+            stm.setObject(1, c.getCusId());
+            stm.setObject(2, c.getCusName());
+            stm.setObject(3, c.getCusAddress());
+            stm.setObject(4, c.getCusSalary());
+            if (stm.executeUpdate() > 0) {
+                new Alert(Alert.AlertType.CONFIRMATION, "Save Customer!..").show();
+            } else {
+                new Alert(Alert.AlertType.CONFIRMATION, "Something went Wrong!..").show();
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
         }
-
     }
-
-
 }

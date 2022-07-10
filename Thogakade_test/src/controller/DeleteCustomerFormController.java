@@ -1,5 +1,6 @@
 package controller;
 
+import db.DBConnection;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -39,7 +40,7 @@ public class DeleteCustomerFormController {
 
 
 // Use PreparedStatement==========================
-        try {
+/*        try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade", "root", "1234");
             String sql = "DELETE FROM Customer WHERE id=?";
@@ -50,7 +51,22 @@ public class DeleteCustomerFormController {
             }
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
+        }*/
+
+
+
+// Use DBConnection==========================
+     try {
+            String sql = "DELETE FROM Customer WHERE id=?";
+            PreparedStatement stm = DBConnection.getInstance().getConnection().prepareStatement(sql);
+            stm.setObject(1,txtCustomerId.getText());
+            if(stm.executeUpdate()>0){
+                new Alert(Alert.AlertType.CONFIRMATION, "Deleted!..").show();
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
         }
+
     }
 
 
@@ -90,7 +106,7 @@ public class DeleteCustomerFormController {
 
 
 // Use PreparedStatement==========================
-        try {
+    /*    try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade", "root", "1234");
             String sql = "SELECT * FROM Customer WHERE id=?";
@@ -107,7 +123,25 @@ public class DeleteCustomerFormController {
             }
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
-        }
+        }*/
 
+
+// Use DBConnection==========================
+        try {
+            String sql = "SELECT * FROM Customer WHERE id=?";
+            PreparedStatement stm = DBConnection.getInstance().getConnection().prepareStatement(sql);
+            stm.setObject(1,txtCustomerId.getText());
+
+            ResultSet resultSet = stm.executeQuery();
+            if (resultSet.next()){
+                txtCustomerName.setText(resultSet.getString(2));
+                txtCustomerAddress.setText(resultSet.getString(3));
+                txtCustomerSalary.setText(String.valueOf(resultSet.getDouble(4)));
+            } else {
+                new Alert(Alert.AlertType.WARNING, "Empty Result!..").show();
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
