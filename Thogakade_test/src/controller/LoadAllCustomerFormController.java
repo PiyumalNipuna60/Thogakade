@@ -7,6 +7,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Customer;
+import util.CrudUtil;
 
 import java.sql.*;
 
@@ -81,10 +82,33 @@ public class LoadAllCustomerFormController {
 
 
 // Use PreparedStatement==========================
-        try {
+/*        try {
             String sql = "SELECT * FROM Customer";
             PreparedStatement stm = DBConnection.getInstance().getConnection().prepareStatement(sql);
             ResultSet resultSet = stm.executeQuery();
+
+            ObservableList<Customer> obList=FXCollections.observableArrayList();
+            while (resultSet.next()){
+                obList.add(
+                        new Customer(
+                                resultSet.getString("id"),
+                                resultSet.getString("name"),
+                                resultSet.getString("address"),
+                                resultSet.getDouble("salary")
+                        )
+                );
+            }
+            tblCustomer.setItems(obList);
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }*/
+
+
+
+// Use CrudUtil==========================
+        try {
+            ResultSet resultSet = CrudUtil.executeQuery("SELECT * FROM Customer");
 
             ObservableList<Customer> obList=FXCollections.observableArrayList();
             while (resultSet.next()){
