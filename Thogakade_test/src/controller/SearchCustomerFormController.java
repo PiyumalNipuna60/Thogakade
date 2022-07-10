@@ -33,7 +33,8 @@ public class SearchCustomerFormController {
         }
         new Alert(Alert.AlertType.WARNING,"Empty Result!..").show();*/
 
-        try {
+// Use Statement==========================
+        /*try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade", "root", "1234");
             String sql = "SELECT * FROM Customer WHERE id='" + txtCustomerId.getText() + "'";
@@ -48,7 +49,30 @@ public class SearchCustomerFormController {
             }
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
+        }*/
+
+
+// Use Statement==========================
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade","root","1234");
+            String sql="SELECT * FROM Customer WHERE id=?";
+            PreparedStatement stm = con.prepareStatement(sql);
+            stm.setObject(1,txtCustomerId.getText());
+
+            ResultSet resultSet = stm.executeQuery();
+            if (resultSet.next()){
+                txtCustomerName.setText(resultSet.getString(2));
+                txtCustomerAddress.setText(resultSet.getString(3));
+                txtCustomerSalary.setText(String.valueOf(resultSet.getDouble(4)));
+            }else {
+                new Alert(Alert.AlertType.WARNING,"Empty Result!..").show();
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
         }
+
+
     }
 
 }
