@@ -11,19 +11,18 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="438.0" prefWidth="745.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DashBoardFormController">
+<AnchorPane prefHeight="438.0" prefWidth="645.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DashBoardFormController">
    <children>
-      <ImageView fitHeight="294.0" fitWidth="703.0" layoutX="18.0" layoutY="130.0" opacity="0.84" pickOnBounds="true">
-         <image>
-            <Image url="@assests/market2.gif" />
-         </image>
-      </ImageView>
-      <Pane layoutX="18.0" layoutY="19.0" prefHeight="400.0" prefWidth="711.0">
+      <Pane layoutX="18.0" layoutY="194.0" prefHeight="225.0" prefWidth="672.0">
          <effect>
             <BoxBlur />
          </effect>
       </Pane>
+      <ImageView fitHeight="256.0" fitWidth="661.0" layoutX="18.0" layoutY="168.0" opacity="0.84" pickOnBounds="true">
+         <image>
+            <Image url="@assests/market2.gif" />
+         </image>
+      </ImageView>
       <Label alignment="BOTTOM_LEFT" layoutX="22.0" layoutY="22.0" text="Thogakade" textOverrun="WORD_ELLIPSIS">
          <font>
             <Font name="Bookman Old Style" size="18.0" />
@@ -35,10 +34,11 @@
             <Cursor fx:constant="WAIT" />
          </cursor>
       </Label>
-      <Button layoutX="22.0" layoutY="87.0" mnemonicParsing="false" onAction="#SaveCustomerOnAction" text="Save Customer" />
-      <Button layoutX="151.0" layoutY="87.0" mnemonicParsing="false" onAction="#SearchCustomerOnAction" text="Search Customer" />
-      <Button layoutX="293.0" layoutY="87.0" mnemonicParsing="false" onAction="#UpdateCustomerOnAction" text="Update Customer" />
-      <Button layoutX="440.0" layoutY="87.0" mnemonicParsing="false" onAction="#DeleteCustomerOnAction" text="Delete Customer" />
-      <Button layoutX="582.0" layoutY="87.0" mnemonicParsing="false" onAction="#LoadAllCustomerOnAction" text="Load All Customer" />
+      <Button layoutX="58.0" layoutY="88.0" mnemonicParsing="false" onAction="#SaveCustomerOnAction" text="Save Customer" />
+      <Button layoutX="195.0" layoutY="88.0" mnemonicParsing="false" onAction="#SearchCustomerOnAction" text="Search Customer" />
+      <Button layoutX="354.0" layoutY="88.0" mnemonicParsing="false" onAction="#UpdateCustomerOnAction" text="Update Customer" />
+      <Button layoutX="502.0" layoutY="88.0" mnemonicParsing="false" onAction="#DeleteCustomerOnAction" text="Delete Customer" />
+      <Button layoutX="374.0" layoutY="137.0" mnemonicParsing="false" onAction="#LoadAllCustomerOnAction" text="Load All Customer" />
+      <Button layoutX="177.0" layoutY="137.0" mnemonicParsing="false" onAction="#placeOrderOnAction" prefHeight="31.0" prefWidth="131.0" text="Place Order" />
    </children>
 </AnchorPane>

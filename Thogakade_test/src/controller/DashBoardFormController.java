@@ -37,4 +37,8 @@ public class DashBoardFormController {
 //        stage.setTitle(URI);
         stage.show();
     }
+
+    public void placeOrderOnAction(ActionEvent actionEvent) {
+
+    }
 }
