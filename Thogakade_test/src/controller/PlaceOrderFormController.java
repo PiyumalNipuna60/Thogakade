@@ -11,7 +11,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import javafx.util.Duration;
 import model.Customer;
 import model.Item;
@@ -145,4 +144,5 @@ public class PlaceOrderFormController {
 
     public void btnRemoveItemOnAction(ActionEvent actionEvent) {
     }
+
 }
