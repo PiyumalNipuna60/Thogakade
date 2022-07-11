@@ -3,10 +3,14 @@ package controller;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.util.Duration;
+import model.Customer;
 
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.Date;
@@ -37,7 +41,20 @@ public class PlaceOrderFormController {
     public void initialize() {
 
         LoadDateAndTime();
+        setCustomerId();
 
+    }
+
+    private void setCustomerId() {
+
+        try {
+            ObservableList<String> obList= FXCollections.observableArrayList(
+            CrudController.getCustomerId()
+            );
+            cmdCusId.setItems(obList);
+        } catch (SQLException  | ClassNotFoundException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     private void LoadDateAndTime() {
