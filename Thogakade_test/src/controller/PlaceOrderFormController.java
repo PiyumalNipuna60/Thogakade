@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.util.Duration;
 import model.Customer;
+import model.Item;
 
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -44,11 +45,31 @@ public class PlaceOrderFormController {
         setCustomerId();
         setItemCode();
 
-        cmdCusId.getSelectionModel().selectedItemProperty()
-                .addListener((observable, oldValue, newValue) -> {
-                    setCustomerDetails(newValue);
+//        cmdCusId.getSelectionModel().selectedItemProperty()
+//                .addListener((observable, oldValue, newValue) -> {
+//                    setCustomerDetails(newValue);
+//                });
+
+        cmdItemCode.getSelectionModel().selectedItemProperty().
+                addListener((observable, oldValue, newValue) -> {
+                    setItemDetails(newValue);
                 });
 
+    }
+
+    private void setItemDetails(Object newValue) {
+        try {
+            Item item = CrudController.getItem((String) newValue);
+            if (item!=null){
+                txtDescription.setText(item.getDescription());
+                txtUnitPrice.setText(String.valueOf(item.getUnitPrice()));
+                txtItemQtyOnHand.setText(String.valueOf(item.getQty()));
+            }else {
+                new Alert(Alert.AlertType.WARNING, "Empty Result").show();
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     private void setCustomerDetails(Object newValue) {

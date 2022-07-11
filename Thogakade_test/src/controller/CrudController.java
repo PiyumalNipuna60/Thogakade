@@ -1,6 +1,7 @@
 package controller;
 
 import model.Customer;
+import model.Item;
 import util.CrudUtil;
 
 import java.sql.ResultSet;
@@ -34,6 +35,19 @@ public class CrudController {
                     resultSet.getString(2),
                     resultSet.getString(3),
                     resultSet.getDouble(4)
+            );
+        }
+        return null;
+    }
+
+    public static Item getItem(String code) throws SQLException, ClassNotFoundException {
+        ResultSet resultSet=CrudUtil.execute("SELECT*FROM Item WHERE code=?",code);
+        if (resultSet.next()){
+            return new Item(
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getDouble(3),
+                    resultSet.getInt(4)
             );
         }
         return null;
