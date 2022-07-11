@@ -6,11 +6,17 @@ import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.util.Duration;
 import model.Customer;
 import model.Item;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
@@ -124,7 +130,11 @@ public class PlaceOrderFormController {
         clock.play();
     }
 
-    public void CustomerAddOnAction(ActionEvent actionEvent) {
+    public void CustomerAddOnAction(ActionEvent actionEvent) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getResource("../views/SaveCustomerForm.fxml"));
+        Stage stage = new Stage();
+        stage.setScene(new Scene(parent));
+        stage.show();
     }
 
     public void btnPlaceOrder(ActionEvent actionEvent) {
