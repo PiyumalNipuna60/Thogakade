@@ -44,12 +44,32 @@ public class PlaceOrderFormController {
         setCustomerId();
         setItemCode();
 
+        cmdCusId.getSelectionModel().selectedItemProperty()
+                .addListener((observable, oldValue, newValue) -> {
+                    setCustomerDetails(newValue);
+                });
+
+    }
+
+    private void setCustomerDetails(Object newValue) {
+        try {
+            Customer c = CrudController.getCustomer((String) newValue);
+            if (c != null) {
+                txtName.setText(c.getCusName());
+                txtxAddress.setText(c.getCusAddress());
+                txtSalary.setText(String.valueOf(c.getCusSalary()));
+            } else {
+                new Alert(Alert.AlertType.WARNING, "Empty Result!..").show();
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     private void setItemCode() {
         try {
-            ObservableList<String> obListItem=FXCollections.observableArrayList(
-              CrudController.getItemCode()
+            ObservableList<String> obListItem = FXCollections.observableArrayList(
+                    CrudController.getItemCode()
             );
             cmdItemCode.setItems(obListItem);
         } catch (SQLException | ClassNotFoundException e) {
@@ -58,13 +78,12 @@ public class PlaceOrderFormController {
     }
 
     private void setCustomerId() {
-
         try {
-            ObservableList<String> obList= FXCollections.observableArrayList(
-            CrudController.getCustomerId()
+            ObservableList<String> obList = FXCollections.observableArrayList(
+                    CrudController.getCustomerId()
             );
             cmdCusId.setItems(obList);
-        } catch (SQLException  | ClassNotFoundException throwables) {
+        } catch (SQLException | ClassNotFoundException throwables) {
             throwables.printStackTrace();
         }
     }
