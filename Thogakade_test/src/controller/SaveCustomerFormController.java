@@ -1,6 +1,8 @@
 package controller;
 
 import db.DBConnection;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -8,10 +10,7 @@ import javafx.scene.control.TextField;
 import model.Customer;
 import util.CrudUtil;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class SaveCustomerFormController {
     public Button btnSave;
@@ -94,4 +93,5 @@ public class SaveCustomerFormController {
             e.printStackTrace();
         }
     }
+
 }

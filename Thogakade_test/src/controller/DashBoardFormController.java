@@ -31,14 +31,14 @@ public class DashBoardFormController {
     }
 
     public void setUi(String URI) throws IOException {
-        Parent parent=FXMLLoader.load(getClass().getResource("../views/"+URI+".fxml"));
-        Stage stage=new Stage();
+        Parent parent = FXMLLoader.load(getClass().getResource("../views/" + URI + ".fxml"));
+        Stage stage = new Stage();
         stage.setScene(new Scene(parent));
 //        stage.setTitle(URI);
         stage.show();
     }
 
-    public void placeOrderOnAction(ActionEvent actionEvent) {
-
+    public void placeOrderOnAction(ActionEvent actionEvent) throws IOException {
+        setUi("PlaceOrderForm");
     }
 }
