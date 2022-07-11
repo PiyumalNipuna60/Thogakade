@@ -45,10 +45,10 @@ public class PlaceOrderFormController {
         setCustomerId();
         setItemCode();
 
-//        cmdCusId.getSelectionModel().selectedItemProperty()
-//                .addListener((observable, oldValue, newValue) -> {
-//                    setCustomerDetails(newValue);
-//                });
+        cmdCusId.getSelectionModel().selectedItemProperty()
+                .addListener((observable, oldValue, newValue) -> {
+                    setCustomerDetails(newValue);
+                });
 
         cmdItemCode.getSelectionModel().selectedItemProperty().
                 addListener((observable, oldValue, newValue) -> {
