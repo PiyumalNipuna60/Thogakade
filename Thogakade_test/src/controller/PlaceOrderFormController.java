@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.Customer;
 import model.Item;
+import views.TM.CartTm;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -35,7 +36,7 @@ public class PlaceOrderFormController {
     public TextField txtUnitPrice;
     public TextField txtQty;
     public Button btnRemoveItem;
-    public TableView tblCart;
+    public TableView<CartTm> tblCart;
     public TableColumn colCode;
     public TableColumn colDescription;
     public TableColumn colUnitPrice;
@@ -43,6 +44,7 @@ public class PlaceOrderFormController {
     public TableColumn colTotalCost;
     public TableColumn colButton;
     public Label lblTotal;
+    ObservableList<CartTm> obList=FXCollections.observableArrayList();
 
     public void initialize() {
 
@@ -145,4 +147,12 @@ public class PlaceOrderFormController {
     public void btnRemoveItemOnAction(ActionEvent actionEvent) {
     }
 
+    private CartTm isExits(Object value){
+        for (CartTm tm: obList) {
+            if (tm.getCode().equals(value)){
+                return tm;
+            }
+        }
+        return null;
+    }
 }
