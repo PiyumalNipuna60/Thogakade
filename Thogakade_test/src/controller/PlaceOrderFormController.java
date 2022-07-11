@@ -1,7 +1,15 @@
 package controller;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
+import javafx.util.Duration;
+
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.util.Date;
 
 public class PlaceOrderFormController {
 
@@ -25,6 +33,27 @@ public class PlaceOrderFormController {
     public TableColumn colTotalCost;
     public TableColumn colButton;
     public Label lblTotal;
+
+    public void initialize() {
+
+        LoadDateAndTime();
+
+    }
+
+    private void LoadDateAndTime() {
+        lblDate.setText(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+
+        Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, event -> {
+            LocalTime currentTime = LocalTime.now();
+            lblTime.setText(currentTime.getHour() + ":" +
+                    currentTime.getMinute() + ":" +
+                    currentTime.getSecond());
+        }),
+                new KeyFrame(Duration.seconds(1))
+        );
+        clock.setCycleCount(Animation.INDEFINITE);
+        clock.play();
+    }
 
     public void CustomerAddOnAction(ActionEvent actionEvent) {
     }
