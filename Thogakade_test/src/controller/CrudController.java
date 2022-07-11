@@ -16,5 +16,12 @@ public class CrudController {
         return arrayList;
     }
 
-
+public static ArrayList<String> getItemCode() throws SQLException, ClassNotFoundException {
+        ResultSet resultSet=CrudUtil.execute("SELECT code FROM Item");
+        ArrayList<String> arrayList=new ArrayList<>();
+        while (resultSet.next()){
+            arrayList.add(resultSet.getString(1));
+        }
+        return arrayList;
+}
 }

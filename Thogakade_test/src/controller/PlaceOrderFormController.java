@@ -42,7 +42,19 @@ public class PlaceOrderFormController {
 
         LoadDateAndTime();
         setCustomerId();
+        setItemCode();
 
+    }
+
+    private void setItemCode() {
+        try {
+            ObservableList<String> obListItem=FXCollections.observableArrayList(
+              CrudController.getItemCode()
+            );
+            cmdItemCode.setItems(obListItem);
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     private void setCustomerId() {
