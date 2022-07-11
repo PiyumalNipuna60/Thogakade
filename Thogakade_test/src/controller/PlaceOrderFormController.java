@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.Customer;
@@ -48,6 +49,13 @@ public class PlaceOrderFormController {
 
     public void initialize() {
 
+        colCode.setCellValueFactory(new PropertyValueFactory<>("code"));
+        colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
+        colUnitPrice.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
+        colQty.setCellValueFactory(new PropertyValueFactory<>("qty"));
+        colTotalCost.setCellValueFactory(new PropertyValueFactory<>("totalCost"));
+        colButton.setCellValueFactory(new PropertyValueFactory<>("btn"));
+
         LoadDateAndTime();
         setCustomerId();
         setItemCode();
@@ -61,7 +69,6 @@ public class PlaceOrderFormController {
                 addListener((observable, oldValue, newValue) -> {
                     setItemDetails(newValue);
                 });
-
     }
 
     private void setItemDetails(Object newValue) {
@@ -142,6 +149,37 @@ public class PlaceOrderFormController {
     }
 
     public void addtoCartOnAction(ActionEvent actionEvent) {
+        Double unitPrice=Double.parseDouble(txtUnitPrice.getText());
+        int qty= Integer.parseInt(txtQty.getText());
+        Double totalCost=unitPrice*qty;
+
+        CartTm exits = isExits(cmdItemCode.getValue());
+        if (exits!=null){
+            for (CartTm temp:obList) {
+                if (temp.equals(exits)){
+                    temp.setQty(temp.getQty()+qty);
+                    temp.setTotalCost(temp.getTotalCost()+totalCost);
+                }
+            }
+        }else {
+            Button btn=new Button("Delete");
+
+            CartTm tm=new CartTm(
+                    (String) cmdItemCode.getValue(),
+                    txtDescription.getText(),
+                    unitPrice,
+                    qty,
+                    totalCost,
+                    btn
+            );
+            btn.setOnAction(e ->{
+                obList.remove(tm);
+            });
+
+            obList.add(tm);
+            tblCart.setItems(obList);
+        }
+        tblCart.refresh();
     }
 
     public void btnRemoveItemOnAction(ActionEvent actionEvent) {
